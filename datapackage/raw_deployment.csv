@@ -1,0 +1,13 @@
+siteID,camUsed,cameraSerial,cameraModel,latitude,longitude,startLocal,endLocal,EndTime EST,StartTime,offset,locationID,locationName,setUp,coordinateUncertainty,cameraDelay,cameraHeight,cameraDepth,cameraTilt,cameraHeading,detectionDistance,timestampIssues,baitUse,featureType,habitat,deploymentGroups,deploymentTags,comments
+PA005,CAM 5,H2RXH005109598,HF2 PRO COVERT,8.88766,-82.67399,7/21/2025,7/23/2025,3:32:00 PM,,,PA005,,Lilo,,,,,,,,,FALSE,,"cool, misty mountain ecosystem, stunted trees in thick layers of mosses and epiphytes",Group 1,Mountain Enterance,
+PA006,CAM 6,HLPXGN06068459,HF2 PRO COVERT,8.8854,-82.67455,7/21/2025,7/23/2025, 3:39:00 PM,,,PA006,,Marisa,,,,,,,,,FALSE,,"cool, misty mountain ecosystem, stunted trees in thick layers of mosses and epiphytes",Group 3 ,End of Big Tree Loop hike,
+PA001,CAM 1,H2RXHO05109538,HF2 PRO COVERT,8.88428,-82.68177,7/21/2025,7/23/2025, 2:21:00 PM,,,PA001,,Lilo,,,,,,,,,FALSE,,"cool, misty mountain ecosystem, stunted trees in thick layers of mosses and epiphytes",Group 1 ,Near Main Lodge of Cloud Forest Hotel,
+PA003,CAM 3,H2RXHO05109535,HF2 PRO COVERT,8.88401,-82.67975,7/21/2025,7/23/2025, 2:36:00 PM,,,PA003,,Marisa,,,,,,,,,FALSE,,"cool, misty mountain ecosystem, stunted trees in thick layers of mosses and epiphytes",Group 3 ,Enterance of Big Tree Loop hike,
+PA004,CAM 4,HLPXGN06069273,HF2 PRO COVERT,8.88714,-82.67628,7/21/2025,7/23/2025,3:09:00 PM,,,PA004,,Liliana,,,,,,,,,FALSE,,"cool, misty mountain ecosystem, stunted trees in thick layers of mosses and epiphytes",Group 2 ,Deplyed near other game cams,
+PA002,CAM 2,H2RXH005109459,HF2 PRO COVERT,8.88363,-82.67999,7/21/2025,7/23/2025, 2:38:00 PM,,,PA002,,Liliana,,,,,,,,,FALSE,,"cool, misty mountain ecosystem, stunted trees in thick layers of mosses and epiphytes",Group 2,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
