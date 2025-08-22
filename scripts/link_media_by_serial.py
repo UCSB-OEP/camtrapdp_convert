@@ -115,7 +115,7 @@ def main():
                         warn_missing_serial += 1
                     elif len(cands) > 1:
                         warn_ambiguous += 1
-                    # leave as-is (you can review later)
+                    # leave as-is 
 
             w.writerow(row)
 

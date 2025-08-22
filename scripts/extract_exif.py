@@ -10,24 +10,24 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
 def find_exiftool(user_path: str | None) -> str:
-    # 1) explicit CLI flag
+    #  explicit CLI flag
     if user_path:
         p = Path(user_path)
         if p.exists():
             return str(p)
         raise FileNotFoundError(f"exiftool not found at --exiftool '{user_path}'")
 
-    # 2) environment variable
+    #  environment variable
     env_path = os.getenv("EXIFTOOL_PATH")
     if env_path and Path(env_path).exists():
         return env_path
 
-    # 3) on PATH
+    #  on PATH
     exe = shutil.which("exiftool") or shutil.which("exiftool.exe")
     if exe:
         return exe
 
-    # 4) repo-local fallback: tools/exiftool/exiftool(.exe)
+    # repo-local fallback: tools/exiftool/exiftool(.exe)
     repo_root = Path(__file__).resolve().parents[1]
     for cand in (
         repo_root / "tools" / "exiftool" / "exiftool.exe",
@@ -36,7 +36,7 @@ def find_exiftool(user_path: str | None) -> str:
         if cand.exists():
             return str(cand)
 
-    # 5) fail with helpful message
+    #  fail with helpful message
     raise FileNotFoundError(
         "Could not find 'exiftool'. Install it and either:\n"
         " - add it to your PATH, or\n"
@@ -62,7 +62,7 @@ def parse_offset(tz_str, tz_num):
             pass
     if tz_num is not None:
         try:
-            # EXIF may give an int or list; handle both
+            # EXIF may give an int or list handle both
             if isinstance(tz_num, list) and tz_num:
                 tz_num = tz_num[0]
             hours = int(tz_num)
@@ -193,7 +193,7 @@ def main():
                 tz_num = md.get("TimeZoneOffset")           # e.g. -9 or [ -9, -9 ]
                 iso_ts = to_iso_zoned(dt_exif, offset_time, tz_num)
 
-                # filePath as posix (forward slashes) and relative if possible
+                # filePath as orward slashes and relative if possible
                 repo_root = Path(__file__).parent.parent.resolve()
                 try:
                     rel = p.resolve().relative_to(repo_root).as_posix()

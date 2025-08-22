@@ -31,7 +31,7 @@ def exif_to_event_id(row):
     evn = exif.get("EventNumber")
     if isinstance(evn, int) or (isinstance(evn, str) and evn.strip().isdigit()):
         return f"{dep}_ev{str(evn).strip()}"
-    seq = (exif.get("Sequence") or "").strip()  # e.g., "1 of 3"
+    seq = (exif.get("Sequence") or "").strip() 
     if seq and "of" in seq:
         first = seq.split("of")[0].strip()
         if first.isdigit():
@@ -66,7 +66,7 @@ def main():
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Collect rows so we can write observations.csv and (optionally) the label template
+    # Collect rows so we can write observations.csv and the label template
     obs_rows = []
     tmpl_rows = []
 
@@ -88,7 +88,7 @@ def main():
                 # skip rows missing the essentials
                 continue
 
-            # Deterministic or random – you chose UUID earlier; keep that:
+            # Deterministic or random chose UUID earlier; keep that:
             obs_id = uuid.uuid4().hex[:8]
 
             # Optional eventID from EXIF (if available)
@@ -143,7 +143,7 @@ def main():
                 "observationComments": "",
             })
 
-    # 1) Write observations.csv
+    # Write observations.csv
     with out_path.open("w", newline="", encoding="utf-8") as fout:
         w = csv.DictWriter(fout, fieldnames=[
             "observationID","deploymentID","mediaID","eventID",
