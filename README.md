@@ -1,4 +1,4 @@
-# Camera Trap Project
+# CamTrap DP data conversion
 
 This project processes camera trap images and outputs standardized datasets in the Camtrap DP
  format.
