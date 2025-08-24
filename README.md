@@ -183,12 +183,15 @@ This will:
 3. Merge Back:
 
 - When you’re done, just save the file as a CSV again (same filename, in the same datapackage/ folder).
-- From the repo root, run:
-  First, non-destructive merge
+- Before running the scripts make sure you are in the repo root. From your terminal, run:
+  ```
   python scripts/merge_labels.py
+  ```
 
 - Once you’ve checked observations_merged.csv looks correct then run:
+  ```
   python scripts/merge_labels.py --inplace
+  ```
 
 ## Raw Deployment Columns (input sheet)
 
@@ -246,7 +249,7 @@ because running scripts is disabled on this system."
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
 
--Then try 
+- Then try 
 ```
 .\.venv\Scripts\Activate.ps1"
 ```

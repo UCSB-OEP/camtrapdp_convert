@@ -23,7 +23,7 @@ def preflight():
     # ExifTool hint (not required if on PATH, but helpful)
     exiftool = os.getenv("EXIFTOOL_PATH", "")
     if not exiftool:
-        print("ℹ️  EXIFTOOL_PATH is not set; relying on PATH or repo-local tools/exiftool/")
+        print("ℹ EXIFTOOL_PATH is not set; relying on PATH or repo-local tools/exiftool/")
     # Data dir
     if not DATA.exists():
         die(f"Missing data directory: {DATA}")
