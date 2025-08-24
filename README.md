@@ -220,20 +220,36 @@ Your datapackage/raw_deployment.csv should include at least:
   or
   pass --exiftool "C:\Tools\exiftool\exiftool.exe" to extract_exif.py.
 
-- python : The term 'python' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+"python : The term 'python' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again."
 
-1. Check if you have python installed.
+- Check if you have python installed.
 Run: py --version or py -3 --version
 If you see something like Python 3.11.5, Python is installed.
 
-If not then please install python.
+- If not then please install python.
 
-If python -m venv .venv does not work for virtual environment then try py -3 -m venv .venv, then activate it using .\.venv\Scripts\Activate.ps1
+- If python -m venv .venv does not work for virtual environment then try:
+```
+py -3 -m venv .venv
+```
+Then activate it using 
+```
+.\.venv\Scripts\Activate.ps1
+```
 
-If .venv\Scripts\Activate.ps1 cannot be loaded 
-because running scripts is disabled on this system. 
 
-Then try to run "Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass" and then try ".\.venv\Scripts\Activate.ps1"
+".venv\Scripts\Activate.ps1 cannot be loaded 
+because running scripts is disabled on this system."
+
+- Try to run:
+```
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+-Then try 
+```
+.\.venv\Scripts\Activate.ps1"
+```
 
 
 
