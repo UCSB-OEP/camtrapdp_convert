@@ -119,7 +119,7 @@ Either:
 - OR set EXIFTOOL_PATH environment variable
 
 4. Python Environment
-- Python 3.9+ recommended
+- Python 3.10+ recommended
 - Install requirements: pip install -r requirements.txt
 
 **If any of these are missing, the pipeline will fail early.**
@@ -141,22 +141,36 @@ This will:
 
 ### You can also run the scripts one by one
 
-1.  EXIF → media_linked.csv + media_metadata.json
+1.  EXIF → media.csv + media_metadata.json
+    ```
     python scripts/extract_exif.py --data-dir data --recursive --embed-full-exif --file-public false
+    ```
+    
     If ExifTool isn’t auto-found, add:
+    ```
     --exiftool "C:\Tools\exiftool\exiftool.exe"
+    ```
+    **Important Note:** "C:\Tools\exiftool\exiftool.exe" is just an example of the absolute file path of where the exiftool would be located in your computers memory. Make sure to change this to the actual location of where exiftool.exe is located on your device.
 
 2.  Build deployments.csv (reads datapackage/raw_deployment.csv)
+    ```
     python scripts/build_deployments.py
+    ```
 
 3.  Link media to deployments via SerialNumber → media_linked.csv
+    ```
     python scripts/link_media_by_serial.py
+    ```
 
 4.  Copy linked to final media.csv
+    ```
     python -c "from shutil import copyfile; copyfile('datapackage/media_linked.csv','datapackage/media.csv')"
+    ```
 
 5.  Build observations + emit label template
+    ```
     python scripts/build_observations.py --emit-label-template
+    ```
 
 ## Labeling Animals
 
