@@ -1,2 +1,17 @@
 # Ignore Python virtual environment
 .venv/
+.venv311/
+datapackage/*.csv
+datapackage/*.json
+
+
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.tif
+*.tiff
+*.gif
+*.heic
+*.webp
+

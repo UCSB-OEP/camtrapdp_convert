@@ -15,6 +15,12 @@ Generate:
 - Create a human labeling template (observations_to_label.csv) to enter species IDs, counts, etc.
 - Merge human labels back into the observations table
 
+**Optional (AI):**
+
+- Zero-shot, camera-trap-tuned classification with BioCLIP-2  
+  - Predicts `observationType` (blank/human/vehicle/animal)  
+  - Writes `datapackage/detections_bioclip.csv`, which can be merged into `observations.csv` (human labels always take priority)
+
 
 
 
@@ -122,6 +128,24 @@ Either:
 - Python 3.10+ required
 - Install requirements: pip install -r requirements.txt
 
+5. (Optional) AI classification with BioCLIP-2
+
+- Install:
+
+- CPU:
+```
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+```
+Then run:
+```
+pip install open_clip_torch pillow huggingface_hub ftfy regex tqdm
+```
+
+Ensure datapackage/media.csv exists (run pipeline first)
+
+
+Internet access required on first run to download model weights
+
 **If any of these are missing, the pipeline will fail early.**
 
 ## Run all the scripts at once:
@@ -171,6 +195,42 @@ This will:
     ```
     python scripts/build_observations.py --emit-label-template
     ```
+
+
+## AI classification with BioCLIP-2
+
+### Local Install Only
+
+- Human labels always take priority. AI fills gaps or provides suggestions.
+
+**Install (once per environment)**
+- CPU-only (recommended unless you have CUDA ready):
+```
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+```
+Then
+```
+pip install open_clip_torch pillow huggingface_hub ftfy regex tqdm
+```
+
+**Run the AI detector**
+
+- Make sure datapackage/media.csv exists.
+  - Small test:
+  ```
+  python scripts/detect_bioclip.py --limit 50 --autocontrast
+  ```
+
+  Full set:
+  ```
+  python scripts/detect_bioclip.py --autocontrast
+  ```
+
+## Merge rules:
+- Human labels (from observations_to_label.csv) are applied first.
+- AI fills empty fields only, or replaces previous AI values.
+- If classificationMethod is set to human, AI will not overwrite.
+
 
 ## Labeling Animals
 
@@ -267,6 +327,10 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
 .\.venv\Scripts\Activate.ps1"
 ```
+### Troubleshooting (AI)
+- Night IR frames misclassified as “human”? Use --autocontrast (already tuned prompts).
+- “No space left on device” on first run? Free disk or set HuggingFace cache to a large local drive.
+- Windows symlink warning from HuggingFace cache is harmless; downloads still work.
 
 
 
