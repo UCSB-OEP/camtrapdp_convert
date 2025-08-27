@@ -112,13 +112,52 @@ def capture_method_from_exif(md: dict) -> str:
     return ""  # optional field: empty is OK
 
 def extract_exif(exiftool_path: str, image_path: Path) -> dict:
-    result = subprocess.run([exiftool_path, "-json", str(image_path)], capture_output=True, text=True)
-    if result.returncode != 0:
-        raise RuntimeError(f"exiftool failed for {image_path} → {result.stderr}")
-    data = json.loads(result.stdout)
+    """
+    Call exiftool safely on Windows:
+    - Use absolute path (Path.resolve()) to avoid CWD/quoting issues
+    - Pass args as a list (never a single string)
+    - Add '-n' for numeric values and '-json' for clean parsing
+    - shell=False to avoid cmd.exe quoting problems with spaces in paths
+    - Read-only: exiftool writes ONLY to stdout (no sidecars)
+    """
+    img_abs = image_path.resolve()  # IMPORTANT when folder names have spaces
+    try:
+        result = subprocess.run(
+            [exiftool_path, "-json", "-n", str(img_abs)],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            shell=False,
+            check=True,  
+            # raise if exiftool returns nonzero
+        )
+    except subprocess.CalledProcessError as e:
+        # Include stderr from exiftool so immediately see the real cause
+        raise RuntimeError(
+            f"exiftool failed for {img_abs} (exit {e.returncode}): {e.stderr.strip()}"
+        ) from e
+    except PermissionError as e:
+        \
+        raise PermissionError(
+            f"Permission error for {img_abs}: {e}. "
+            "If your images are under OneDrive/Defender protection, try "
+            "'Always keep on this device' or write outputs to an 'out/' folder."
+        ) from e
+
+    try:
+        data = json.loads(result.stdout)
+    except json.JSONDecodeError as e:
+        snippet = result.stdout[:400].replace("\n", " ")
+        raise ValueError(
+            f"Could not parse exiftool JSON for {img_abs}: {e}. "
+            f"First 400 chars of stdout: {snippet}"
+        ) from e
+
     if not data:
-        raise ValueError(f"No EXIF data returned for {image_path}")
+        raise ValueError(f"No EXIF data returned for {img_abs}")
     return data[0]
+
 
 def iter_media(root: Path, recursive: bool) -> list[Path]:
     exts = ("*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG")

@@ -1,21 +1,127 @@
 {
-  "name": "camera-trap-project",
-  "profile": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/camtrap-dp-profile.json",
   "resources": [
     {
       "name": "deployments",
       "path": "deployments.csv",
-      "schema": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/deployments-table-schema.json"
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "schema": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/deployments-table-schema.json"
     },
     {
       "name": "media",
       "path": "media.csv",
-      "schema": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/media-table-schema.json"
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "schema": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/media-table-schema.json"
     },
     {
       "name": "observations",
       "path": "observations.csv",
-      "schema": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0/observations-table-schema.json"
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "schema": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/observations-table-schema.json"
+    },
+    {
+      "name": "labels",
+      "description": "Merged human labels for QC; not part of Camtrap DP.",
+      "path": "observations_merged.csv",
+      "profile": "tabular-data-resource",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8"
+    }
+  ],
+  "profile": "https://raw.githubusercontent.com/tdwg/camtrap-dp/1.0.2/camtrap-dp-profile.json",
+  "name": "panama-camtrap-2025-cloudrainforest",
+  "created": "2025-08-23T04:00:00-07:00",
+  "title": "Camera Trap Observations from Mount Totuma, Panama (July 2025)",
+  "homepage": "https://github.com/UCSB-OEP/camtrapdp_convert.git",
+  "keywords": [
+    "camera traps",
+    "Panama",
+    "wildlife",
+    "Reconyx",
+    "biodiversity",
+    "FAIR",
+    "Camtrap DP"
+  ],
+  "image": "https://github.com/UCSB-OEP/camtrapdp_convert/blob/main/data/CAM%204%20PT%204/RCNX0372.JPG",
+  "description": "Camera trap dataset collected in Mount Totuma, Panama (July 21–23, 2025). Reconyx HyperFire 2 cameras deployed at 6 sites, motion-triggered, 2.9 MP images. Dataset follows Camtrap DP 1.0.2 with deployments, media, and observations. Intended for biodiversity monitoring and demonstration of reproducible workflows.",
+  "contributors": [
+    {
+      "title": "Dr. Alex White",
+      "email": "whiteae@si.edu",
+      "role": "contributor",
+      "organization": "Smithsonian Institution"
+    },
+    {
+      "title": "Mario Castellanos",
+      "email": "mario.castellanos@ucsb.edu",
+      "role": "contributor",
+      "organization": "UCSB The Office of Education Partnerships (Executive Director)"
+    },
+    {
+      "title": "Cristina Soto-Balderas",
+      "email": "cristina.soto.balderas@ucsb.edu",
+      "role": "contributor",
+      "organization": "UCSB The Office of Education Partnerships (Executive Affiliate)"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "CC-BY-4.0",
+      "scope": "data"
+    },
+    {
+      "name": "CC-BY-NC-4.0",
+      "scope": "media"
+    }
+  ],
+  "project": {
+    "id": "UCSB-PANAMA-2025",
+    "title": "Camtrap DP Convert",
+    "description": "Using scripts to convert images into the CamTrap DP format",
+    "path": "https://github.com/UCSB-OEP/camtrapdp_convert.git",
+    "samplingDesign": "targeted",
+    "captureMethod": [
+      "activityDetection"
+    ],
+    "individualAnimals": false,
+    "observationLevel": [
+      "sequence"
+    ]
+  },
+  "spatial": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [-82.68177, 8.88428],
+        [-82.67975, 8.88401],
+        [-82.67399, 8.88766],
+        [-82.67455, 8.8854],
+        [-82.68177, 8.88428]
+      ]
+    ]
+  },
+  "temporal": {
+    "start": "2025-07-21",
+    "end": "2025-07-23"
+  },
+  "sources": [
+    {
+      "title": "ExifTool",
+      "path": "https://exiftool.org/",
+      "version": "13.34"
+    },
+    {
+      "title": "Bioclip 2",
+      "path": "https://huggingface.co/imageomics/bioclip-2"
     }
   ]
 }

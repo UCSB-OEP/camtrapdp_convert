@@ -119,7 +119,7 @@ Either:
 - OR set EXIFTOOL_PATH environment variable
 
 4. Python Environment
-- Python 3.10+ recommended
+- Python 3.10+ required
 - Install requirements: pip install -r requirements.txt
 
 **If any of these are missing, the pipeline will fail early.**
