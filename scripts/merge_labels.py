@@ -95,7 +95,7 @@ def main():
     obs_rows, obs_fields = load_csv(args.observations)
     obs_fields = ensure_fields(obs_fields)
 
-    # ---- 1) Apply HUMAN labels (priority) ----
+    #  1) Apply HUMAN labels (priority)
     try:
         lab_rows, lab_fields = load_csv(args.labels)
     except FileNotFoundError:
@@ -112,34 +112,51 @@ def main():
         if not oid or oid not in idx_by_oid:
             continue
 
-        # Only take explicitly provided (non-empty) cells from the label sheet
-        edits = {k: lab.get(k, "").strip() for k in editable_present if lab.get(k, "").strip() != ""}
-        if not edits:
+        obs = idx_by_oid[oid]
+        changed = {}
+        for k in editable_present:
+            v = (lab.get(k) or "").strip()
+            if v == "":
+                continue
+            cur = (obs.get(k) or "").strip()
+
+            if k == "observationType":
+                v_norm = v.lower()
+                cur_norm = cur.lower()
+                # Ignore template default "unclassified" unless it's
+                # actually changing a previously non-unclassified value.
+                if v_norm == "unclassified" and cur_norm in ("", "unclassified"):
+                    continue
+                if v_norm == cur_norm:
+                    continue
+            else:
+                if v == cur:
+                    continue
+
+            changed[k] = v
+
+        if not changed:
             continue
 
-        # Validate before applying
+        # Validate and apply real human edits
         try:
-            validate_row(edits)
+            validate_row(changed)
         except Exception as e:
             print(f"[WARN] Skipping {oid}: {e}")
             continue
 
-        # Apply human edits (priority; will override anything)
-        obs = idx_by_oid[oid]
-        for k, v in edits.items():
+        for k, v in changed.items():
             obs[k] = v
 
-        # If a human set observationType or scientificName, mark method if not already set
-        if edits:
-            # don't clobber existing non-ML annotations
-            if (obs.get("classificationMethod","").strip().lower() in ("", "machine learning")):
-                obs["classificationMethod"] = "human"
-                obs["classifiedBy"] = obs.get("classifiedBy","human")
-                # timestamp optional; only set if empty
-                if not obs.get("classificationTimestamp","").strip():
-                    obs["classificationTimestamp"] = datetime.utcnow().isoformat(timespec="seconds")+"Z"
+        # Mark classification as human ONLY when there was a real change
+        cm = (obs.get("classificationMethod","") or "").strip().lower()
+        if cm in ("", "machine learning"):
+            obs["classificationMethod"] = "human"
+            obs["classifiedBy"] = obs.get("classifiedBy") or "human"
+            obs["classificationTimestamp"] = datetime.utcnow().isoformat(timespec="seconds")+"Z"
 
         updated_human += 1
+
 
     # ---- 2) Apply AI labels where fields are still empty (or were previously ML) ----
     ai_rows = []
